@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  bgLogin: '/assets/images/img.png',
   production: false
 };
 

@@ -1,0 +1,142 @@
+
+body {
+  height: 100vh;
+}
+
+.bg__login {
+  background-size: cover;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 25vh;
+  box-sizing: border-box;
+}
+
+.login {
+  width: 30%;
+  background: #FFFFFF;
+  padding: 30px 42px;
+  margin-left: 75px;
+  border-radius: 30px;
+}
+
+@media (max-width: 992px) {
+  .login {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+.loading-btn {
+  margin-left: 20px;
+}
+
+.login__title {
+  text-align: center;
+  margin: 0 0 15px 0 !important;
+  font-weight: 800;
+}
+
+.login__flex {
+  display: flex;
+  justify-content: space-between;
+  color: #7F7F7F;
+  margin-top: 10px;
+  padding: 0 10px 0 10px;
+
+  div {
+    cursor: pointer;
+  }
+
+  div:hover {
+    text-decoration: underline;
+    color: #000000;
+  }
+}
+
+
+:host ::ng-deep .ant-input {
+  height: 60px !important;
+  border-radius: 20px !important;
+  background: #EFEFEF !important;
+  border: none !important;
+  padding: 0 20px !important;
+}
+
+.login-input {
+  width: 100%;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 16px;
+  color: #333;
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+
+::ng-deep .login-input .ant-input:focus {
+  border-color: #EFEFEF !important;
+}
+
+
+::ng-deep .input__message {
+  color: #EB2D4B !important;
+}
+
+.login__btn {
+  width: 100%;
+  margin: 25px 0 10px 0;
+  color: #FFFFFF;
+  height: 45px;
+  border-radius: 15px;
+  background: linear-gradient(to right, #B4A5FA, #6053B3);
+  cursor: pointer;
+}
+
+.register__btn {
+  width: 100%;
+  margin: 25px 0 10px 0;
+  color: #FFFFFF;
+  height: 45px;
+  border-radius: 15px;
+  background: gray;
+  cursor: pointer;
+}
+
+.pass-eye {
+  position: absolute;
+  top: 26px;
+  right: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+::ng-deep .bg__login .ant-btn {
+  border: none;
+}
+
+
+.login__text--center {
+  text-align: center;
+  color: #5B5B5B;
+}
+
+.login__flex--icon {
+  display: flex;
+  justify-content: center;
+}
+
+.login__icon1 {
+  font-size: 24px;
+  margin: 10px;
+  padding: 7px;
+  border-radius: 50%;
+  background: #D95A1A;
+  color: #FFFFFF;
+  cursor: pointer;
+}

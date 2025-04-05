@@ -1,0 +1,76 @@
+<div class="bg__login" style="background-image: url('{{bgLoginPath}}')">
+  <div class="login">
+    <h1 class="login__title">Đăng ký</h1>
+    <form nz-form [formGroup]="form">
+      <div nz-row [nzGutter]='[15,15]'>
+        <div nz-col [nzXs]="24">
+          <input
+            type="text"
+            class="login-input"
+            placeholder="Tên đăng nhập"
+            (keydown)="preventSpace($event)"
+            formControlName="loginName"
+            [ngClass]="{'error': isSubmitted && f['loginName'].errors}"
+          />
+          <div *ngIf="isSubmitted && f['loginName'].errors">
+            <div *ngIf="f['loginName'].errors?.required" style="color: red; margin-top: 5px">
+              *Tên đăng nhập bắt buộc nhập
+            </div>
+          </div>
+        </div>
+
+        <div nz-col [nzXs]="24">
+          <input
+            [type]="isFocus ? 'text' : 'password'"
+            class="login-input"
+            placeholder="Mật khẩu"
+            (keydown)="preventSpace($event)"
+            formControlName="password"
+            [ngClass]="{'error': isSubmitted && f['password'].errors}"
+          />
+          <div *ngIf="isSubmitted && f['password'].errors">
+            <div *ngIf="f['password'].errors?.required" style="color: red; margin-top: 5px">
+              *Mật khẩu bắt buộc nhập
+            </div>
+          </div>
+          <label class="pass-eye" (click)="onLabelClick()">
+            <i *ngIf="isFocus" class="fa fa-eye"></i>
+            <i *ngIf="!isFocus" class="fa fa-eye-slash"></i>
+          </label>
+        </div>
+        <div nz-col [nzXs]="24">
+          <input
+            [type]="isFocus ? 'text' : 'password'"
+            class="login-input"
+            placeholder="Xác nhận lại mât khẩu"
+            (keydown)="preventSpace($event)"
+            formControlName="retypePassword"
+            [ngClass]="{'error': isSubmitted && f['retypePassword'].errors}"
+          />
+          <div *ngIf="isSubmitted && f['retypePassword'].errors">
+            <div *ngIf="f['retypePassword'].errors?.required" style="color: red; margin-top: 5px">
+              *Xác nhận lại mât khẩu bắt buộc nhập
+            </div>
+          </div>
+          <label class="pass-eye" (click)="onLabelClick()">
+            <i *ngIf="isFocus" class="fa fa-eye"></i>
+            <i *ngIf="!isFocus" class="fa fa-eye-slash"></i>
+          </label>
+        </div>
+      </div>
+      <div>
+        <button class="login__btn" nz-button (click)="submitForm()">
+          <span *ngIf="isLoading" nz-icon nzType="loading"
+                nzTheme="outline" class="loading-btn"></span>Đăng ký
+          <span nz-icon
+                nzType="arrow-right"
+                nzTheme="outline"></span>
+
+        </button>
+        <button class="register__btn" nz-button (click)="back()">Quay lại
+
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
