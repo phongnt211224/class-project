@@ -1,9 +1,36 @@
-<!-- layout.component.html -->
-<div class="layout-wrapper">
-  <header>Your header content here</header>
-  <nav>Your navigation here</nav>
-  <main>
-    <router-outlet></router-outlet> <!-- This is where child routes will render -->
-  </main>
-  <footer>Your footer content here</footer>
-</div>
+<nz-layout>
+  <nz-sider nzCollapsible
+            [nzCollapsed]="isCollapsed"
+            nzWidth="200px"
+            nzBreakpoint="lg"
+            [nzCollapsedWidth]="50"
+  >
+
+    <div class="sider-trigger">
+      <button nz-button (click)="triggerCollapse()" class="trigger-btn">
+        <span style="font-size: 150%" nz-icon nzType="menu-fold" *ngIf="!isCollapsed" nzTheme="outline"></span>
+        <span style="font-size: 150%" nz-icon nzType="menu-unfold" *ngIf="isCollapsed" nzTheme="outline"></span>
+      </button>
+    </div>
+
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-submenu nzTitle="Thư viện đồ án" nzIcon="project">
+        <ul>
+          <li nz-menu-item>Danh sách đồ án</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header></nz-header>
+    <nz-content>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>User</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+  </nz-layout>
+</nz-layout>
