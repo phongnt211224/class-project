@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
-import {RouterOutlet} from "@angular/router";
+import {RouterLinkWithHref, RouterOutlet} from "@angular/router";
 import {SharedModule} from "@core/shared/shared.module";
 
 
@@ -13,7 +13,8 @@ import {SharedModule} from "@core/shared/shared.module";
   imports: [
     CommonModule,
     RouterOutlet,
-    SharedModule
+    SharedModule,
+    RouterLinkWithHref
   ]
 })
 export class CoreModule { }

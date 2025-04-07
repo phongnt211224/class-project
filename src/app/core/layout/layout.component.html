@@ -26,8 +26,9 @@
     <nz-header></nz-header>
     <nz-content>
       <nz-breadcrumb>
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+        <nz-breadcrumb-item *ngFor="let crumb of breadcrumbs">
+          <a [routerLink]="crumb.path">{{ crumb.label | titlecase }}</a>
+        </nz-breadcrumb-item>
       </nz-breadcrumb>
       <router-outlet></router-outlet>
     </nz-content>
