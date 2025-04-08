@@ -2,6 +2,30 @@
   height: 32px;
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+
+  .anticon-ant-cloud {
+    color: #1890ff;
+    transition: color 0.3s ease, font-size 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      color: #40c4ff;
+    }
+  }
+}
+
+::ng-deep .pagination{
+  position: relative;
+  margin: 10px;
+  bottom: 0;
+  right:0;
+  left:0;
+  display: flex;
+  justify-content: center;
 }
 
 nz-header {
@@ -50,4 +74,56 @@ nz-layout {
   border: none;
   padding: 0;
   cursor: pointer;
+}
+
+::ng-deep .search__custom-common {
+  display: flex;
+  justify-content: space-between;
+  background-color: #F6F8FF;
+  position: sticky;
+  padding: 8px;
+  border-radius: 8px;
+  top: 0;
+  z-index: 100;
+
+  .button__action-left .ant-btn {
+    margin-left: 0 !important;
+  }
+
+  .button__action-left {
+    display: flex;
+    align-items: center;
+    min-width: 250px;
+    max-width: 400px;
+  }
+
+  .search__page-right {
+    max-width: 800px;
+    flex: 1;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+  }
+}
+
+::ng-deep .icon-group {
+  display: flex;
+  gap: 10px;
+
+  a {
+    font-size: 150%;
+
+    .anticon-star {
+      color: #FFD700;
+    }
+
+    .anticon-delete {
+      color: #D32F2F;
+    }
+
+    .anticon-setting {
+      color: #607D8B;
+    }
+  }
 }
