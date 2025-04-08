@@ -1,0 +1,16 @@
+<nz-row [nzGutter]="16">
+  <nz-col *ngFor="let project of projects" [nzLg]="8" [nzXs]="24" class="card-item" >
+    <nz-card [nzTitle]="project.title" [nzCover]="project.image" [nzExtra]="extraTemplate">
+      <p>{{ project.description }}</p>
+      <nz-tag *ngIf="project.status === 'In Progress'" nzColor="processing">In Progress</nz-tag>
+      <nz-tag *ngIf="project.status === 'Completed'" nzColor="success">Completed</nz-tag>
+      <nz-tag *ngIf="project.status === 'Pending'" nzColor="warning">Pending</nz-tag>
+      <p><strong>Start Date:</strong> {{ project.startDate }}</p>
+      <p><strong>End Date:</strong> {{ project.endDate }}</p>
+    </nz-card>
+  </nz-col>
+</nz-row>
+
+<ng-template #extraTemplate>
+  <a>More</a>
+</ng-template>

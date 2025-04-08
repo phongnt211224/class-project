@@ -5,16 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ModulesModule} from "./modules/modules.module";
 import {CoreModule} from "./core/core.module";
+import {LayoutComponent} from "@core/layout/layout.component";
+import {NzIconModule} from "ng-zorro-antd/icon";
+import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     ModulesModule,
     AppRoutingModule,
-    CoreModule
+    CoreModule,
+    NzIconModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

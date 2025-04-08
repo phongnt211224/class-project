@@ -9,12 +9,13 @@ const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule)
   },
   {
-    path: '',
+    path: 'home',
     component: LayoutComponent,
     loadChildren: () => import('./modules/modules.module').then((m) => m.ModulesModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
