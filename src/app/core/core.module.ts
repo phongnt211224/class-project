@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
 import {RouterLinkWithHref, RouterOutlet} from "@angular/router";
 import {SharedModule} from "@core/shared/shared.module";
+import {BaseComponent} from "@core/components/base.component";
 
 
 
 @NgModule({
   declarations: [
-    LayoutComponent
+    LayoutComponent,
+    BaseComponent
   ],
   imports: [
     CommonModule,

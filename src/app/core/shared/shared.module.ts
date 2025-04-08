@@ -12,6 +12,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
+import {NzPaginationModule} from "ng-zorro-antd/pagination";
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
     NzMenuModule,
     NzInputModule,
     NzModalModule,
-    NzBreadCrumbModule
+    NzBreadCrumbModule,
+    NzPaginationModule
   ]
 })
 export class SharedModule { }

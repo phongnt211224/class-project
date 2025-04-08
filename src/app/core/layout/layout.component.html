@@ -4,6 +4,7 @@
             nzWidth="200px"
             nzBreakpoint="lg"
             [nzCollapsedWidth]="50"
+            (nzCollapsedChange)="triggerCollapse()"
   >
 
     <div class="sider-trigger">
@@ -13,7 +14,9 @@
       </button>
     </div>
 
-    <div class="logo"></div>
+    <div class="logo">
+      <span nz-icon nzType="ant-cloud" nzTheme="outline" [style]="isCollapsed ? 'font-size:20px' : 'font-size:40px'"></span>
+    </div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
       <li nz-submenu nzTitle="Thư viện đồ án" nzIcon="project">
         <ul>

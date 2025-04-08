@@ -4,7 +4,8 @@
 
 export const environment = {
   bgLogin: '/assets/images/img.png',
-  production: false
+  production: false,
+  backendUrl:'test'
 };
 
 /*
