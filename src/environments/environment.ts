@@ -5,7 +5,7 @@
 export const environment = {
   bgLogin: '/assets/images/img.png',
   production: false,
-  backendUrl:'test'
+  backendUrl:'http://localhost:8000/api/v1'
 };
 
 /*

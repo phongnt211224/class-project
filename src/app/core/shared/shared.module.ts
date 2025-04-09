@@ -1,18 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 // Import all the required Ant Design modules here
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzTagModule } from 'ng-zorro-antd/tag';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzCardModule} from 'ng-zorro-antd/card';
+import {NzTagModule} from 'ng-zorro-antd/tag';
+import {NzGridModule} from 'ng-zorro-antd/grid';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzLayoutModule} from 'ng-zorro-antd/layout';
+import {NzMenuModule} from 'ng-zorro-antd/menu';
+import {NzInputModule} from 'ng-zorro-antd/input';
+import {NzModalModule} from 'ng-zorro-antd/modal';
 import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
 import {NzPaginationModule} from "ng-zorro-antd/pagination";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {NzPaginationModule} from "ng-zorro-antd/pagination";
     NzMenuModule,
     NzInputModule,
     NzModalModule,
-    NzBreadCrumbModule
+    NzBreadCrumbModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     NzButtonModule,
@@ -39,7 +41,9 @@ import {NzPaginationModule} from "ng-zorro-antd/pagination";
     NzInputModule,
     NzModalModule,
     NzBreadCrumbModule,
-    NzPaginationModule
+    NzPaginationModule,
+    ToastrModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

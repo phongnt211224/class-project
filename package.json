@@ -23,6 +23,7 @@
     "ng-zorro-antd": "^14.3.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "ngx-toastr": "^14.2.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

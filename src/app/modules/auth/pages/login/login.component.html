@@ -9,11 +9,11 @@
             class="login-input"
             placeholder="Tên đăng nhập"
             (keydown)="preventSpace($event)"
-            formControlName="loginName"
-            [ngClass]="{'error': isSubmitted && f['loginName'].errors}"
+            formControlName="email"
+            [ngClass]="{'error': isSubmitted && f['email'].errors}"
           />
-          <div *ngIf="isSubmitted && f['loginName'].errors">
-            <div *ngIf="f['loginName'].errors?.required" style="color: red; margin-top: 5px">
+          <div *ngIf="isSubmitted && f['email'].errors">
+            <div *ngIf="f['email'].errors?.required" style="color: red; margin-top: 5px">
               *Tên đăng nhập bắt buộc nhập
             </div>
           </div>
@@ -48,9 +48,7 @@
                 nzTheme="outline"></span>
 
         </button>
-        <button class="register__btn" nz-button (click)="register()">Đăng ký
-
-        </button>
+<!--        <button class="register__btn" nz-button (click)="register()">Đăng ký</button>-->
       </div>
     </form>
   </div>

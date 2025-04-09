@@ -15,6 +15,7 @@ export interface RequestOptions {
 export class BaseService {
   protected httpClient: HttpClient;
   private baseUrl = environment.backendUrl;
+  protected requestOptions: RequestOptions;
 
   constructor(protected readonly injector: Injector) {
     this.httpClient = this.injector.get(HttpClient);
@@ -55,6 +56,11 @@ export class BaseService {
   private handleError(error: any) {
     return throwError(() => error.error || error);
   }
+
+  public resetRequest() {
+    this.requestOptions = { data: {}, params: {} };
+  }
+
 
   private createRequestOptions(options?: RequestOptions): {
     headers?: HttpHeaders;
