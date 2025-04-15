@@ -40,7 +40,7 @@ export class StorageService {
     if (this.isNullOrEmpty(storedData)) {
       return null;
     }
-    return storedData;
+    return JSON.parse(storedData);
   }
 
   public static isNullOrEmpty(str: any): boolean {
@@ -70,7 +70,7 @@ export class StorageService {
       storedData = new StorageData();
     }
     storedData[key] = val;
-    this.storage.setItem(this.instanceName, storedData);
+    this.storage.setItem(this.instanceName, JSON.stringify(storedData));
   }
 
 
