@@ -10,9 +10,6 @@ import {
   ViewChild
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd/modal';
 import {Mode} from "@core/shared/constants/common";
 
@@ -50,10 +47,11 @@ export class BaseComponent<T>  {
   };
 
   doOpenForm(mode: Mode, data?: T) {
+    console.log(data)
     if (this.formConfig) {
       this.modalRef = this.modal.create({
         nzWidth: this.getNzWidth() + (this.addWidth ? this.addWidth : 0),
-        nzTitle: this.getModeTitle(mode) + this.formConfig.title,
+        nzTitle: this.getModeTitle(mode) + " " + this.formConfig.title,
         nzContent: this.formConfig.content,
         nzMaskClosable: this.formConfig.isCloseModal,
         nzComponentParams: {

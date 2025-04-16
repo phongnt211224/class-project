@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 import {RouterLinkWithHref, RouterOutlet} from "@angular/router";
 import {SharedModule} from "@core/shared/shared.module";
 import {BaseComponent} from "@core/components/base.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -16,7 +17,8 @@ import {BaseComponent} from "@core/components/base.component";
     CommonModule,
     RouterOutlet,
     SharedModule,
-    RouterLinkWithHref
+    RouterLinkWithHref,
+    ReactiveFormsModule
   ]
 })
 export class CoreModule { }
