@@ -16,4 +16,17 @@ export class ProjectService extends BaseService{
     return this.get(url, this.requestOptions);
   }
 
+  public getProject(id):Observable<any>{
+    this.resetRequest();
+    const url = `/project/get/${id}`;
+    return this.get(url, this.requestOptions);
+  }
+
+  public postCreateProject(data):Observable<any>{
+    this.resetRequest()
+    const url = `/project/create/`;
+    this.requestOptions.data = data
+    return this.post(url,this.requestOptions)
+  }
+
 }

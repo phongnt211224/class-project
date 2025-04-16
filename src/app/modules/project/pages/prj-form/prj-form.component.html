@@ -1,8 +1,60 @@
 <div class='form'>
   <form nz-form [formGroup]="form" style="margin-top: 20px">
     <div nz-row [nzGutter]='[20,15]'>
-      <div nz-col nzSpan="12">
-        "abc"
+      <div nz-col [nzLg]="24" [nzXs]="24">
+        <h5 nz-typography>Tên đồ án</h5>
+        <input
+          type="text"
+          placeholder="Tên đồ án"
+          nz-input
+          formControlName="name"
+        />
+
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="24">
+        <h5 nz-typography>Ngày bắt đầu</h5>
+        <nz-date-picker
+          formControlName="start_date"
+          nzFormat="dd/MM/yyyy"
+          [nzStatus]="form.errors?.rangeDateError ? 'error' : null"
+        >
+
+        </nz-date-picker>
+        <div *ngIf="form.errors?.rangeDateError" class="error-label">
+          Ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc.
+        </div>
+
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="24">
+        <h5 nz-typography>Ngày kết thúc</h5>
+        <nz-date-picker
+          formControlName="end_date"
+          nzFormat="dd/MM/yyyy"
+        >
+
+        </nz-date-picker>
+
+      </div>
+      <div nz-col [nzLg]="24" [nzXs]="24">
+        <h5 nz-typography>Tóm tắt đồ án</h5>
+        <textarea
+          [rows]="2"
+          nz-input
+          formControlName="summary"
+        >
+
+        </textarea>
+      </div>
+      <div nz-col [nzLg]="24" [nzXs]="24">
+        <h5 nz-typography>Mô tả đồ án</h5>
+        <textarea
+          [rows]="5"
+          nz-input
+          formControlName="description"
+        >
+
+        </textarea>
+
       </div>
     </div>
   </form>

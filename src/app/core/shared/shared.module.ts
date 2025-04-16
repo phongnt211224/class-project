@@ -15,6 +15,10 @@ import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
 import {NzPaginationModule} from "ng-zorro-antd/pagination";
 import {ToastrModule} from "ngx-toastr";
 import {ReactiveFormsModule} from "@angular/forms";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {NzTypographyModule} from "ng-zorro-antd/typography";
+import {NzTimePickerModule} from "ng-zorro-antd/time-picker";
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 
 @NgModule({
   imports: [
@@ -30,7 +34,11 @@ import {ReactiveFormsModule} from "@angular/forms";
     NzModalModule,
     NzBreadCrumbModule,
     ToastrModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzFormModule,
+    NzTypographyModule,
+    NzTimePickerModule,
+    NzDatePickerModule
   ],
   exports: [
     NzButtonModule,
@@ -45,7 +53,11 @@ import {ReactiveFormsModule} from "@angular/forms";
     NzBreadCrumbModule,
     NzPaginationModule,
     ToastrModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzFormModule,
+    NzTypographyModule,
+    NzTimePickerModule,
+    NzDatePickerModule
   ]
 })
 export class SharedModule {

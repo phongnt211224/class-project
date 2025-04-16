@@ -1,6 +1,24 @@
 <div>
+  <div class="search-group">
+    <div class="search-page-left">
+      <button
+        nz-button
+        nzType="primary"
+        (click)="doOpenForm(Mode.ADD)"
+      >
+        Thêm mới
+      </button>
+    </div>
+    <div class="search-page-right">
+      <input
+        nz-input
+        nzSize="large"
+        placeholder="Từ khóa"
+      >
+    </div>
+  </div>
   <nz-row [nzGutter]="16">
-    <nz-col *ngFor="let project of projects1" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item" >
+    <nz-col *ngFor="let project of listProjects" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item" >
       <ng-template #extraTemplate>
         <div class="icon-group">
           <a>
@@ -45,6 +63,8 @@
     Lưu
   </button>
 </ng-template>
+
+
 
 
 
