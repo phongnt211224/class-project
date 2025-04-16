@@ -3,6 +3,8 @@ import {ProjectService} from "@core/services/project/project.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {HTTP_STATUS_CODE, Mode} from "@core/shared/constants/common";
 import {compareDate} from "@core/shared/utils/validators.utils";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {NzModalRef} from "ng-zorro-antd/modal";
 
 @Component({
   selector: 'app-prj-form',
@@ -17,6 +19,8 @@ export class PrjFormComponent implements OnInit {
   constructor(
     private projectService:ProjectService,
     private fb: FormBuilder,
+    private message: NzMessageService,
+    private modal: NzModalRef
   ) {
     this.initForm()
   }
@@ -46,26 +50,47 @@ export class PrjFormComponent implements OnInit {
   }
 
   initData(){
-    if(this.data?.projectId){
-      this.projectService.getProject(this.data.projectId).subscribe(res =>{
+    if(this.data?.id){
+      this.projectService.getProject(this.data.id).subscribe(res =>{
         this.form.patchValue(res.data)
       })
     }
 
   }
 
-  save(){
-    if(this.mode === Mode.ADD){
-      if(this.form.valid){
+  save(): void {
+    if (this.mode === Mode.ADD) {
+      if (this.form.valid) {
         const formValue = this.convertDataForm(this.form.value);
-        console.log(formValue)
-        this.projectService.postCreateProject(formValue).subscribe(res=>{
-          if(res && res.code === HTTP_STATUS_CODE.SUCCESS){
-            console.log(res)
-          }
-        })
+        this.projectService.postCreateProject(formValue).subscribe({
+          next: (res) => {
+            if (res && res.code === HTTP_STATUS_CODE.SUCCESS) {
+              this.message.success('Project created successfully');
+              this.modal.close(true);
+            }
+          },
+          error: (err) => {
+            this.message.error('Failed to create project');
+            console.error('Error:', err);
+          },
+        });
       }
-
+    } else if (this.mode === Mode.EDIT) {
+      if (this.form.valid) {
+        const formValue = this.convertDataForm(this.form.value);
+        this.projectService.putUpdateProject(formValue,this.data.id).subscribe({
+          next: (res) => {
+            if (res && res.code === HTTP_STATUS_CODE.SUCCESS) {
+              this.message.success('Project updated successfully');
+              this.modal.close(true);
+            }
+          },
+          error: (err) => {
+            this.message.error('Failed to update project');
+            console.error('Error:', err);
+          },
+        });
+      }
     }
   }
 
