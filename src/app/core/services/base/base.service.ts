@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '@env/environment';
+import {CookieService} from "ngx-cookie-service";
 
 export interface RequestOptions {
   data?: any;
   params?: { [param: string]: string | string[] | boolean | number } | HttpParams;
   observe?: 'response' | 'body';
   responseType?: 'json' | 'blob';
+  header?: HttpHeaders
 }
 
 @Injectable()
@@ -17,14 +19,16 @@ export class BaseService {
   private baseUrl = environment.backendUrl;
   protected requestOptions: RequestOptions;
 
-  constructor(protected readonly injector: Injector) {
+  constructor(protected readonly injector: Injector,
+              public cookieService: CookieService) {
     this.httpClient = this.injector.get(HttpClient);
   }
 
   protected get(endpointUrl: string, options?: RequestOptions): Observable<any> {
     const requestOptions = this.createRequestOptions(options);
     const url = this.baseUrl + endpointUrl;
-    return this.httpClient.get(url, requestOptions).pipe(
+    const urlFull = url + (requestOptions.params ? ('?' + (requestOptions.params as any).toString()) : '');
+    return this.httpClient.get(urlFull, requestOptions).pipe(
       catchError(this.handleError)
     );
   }
