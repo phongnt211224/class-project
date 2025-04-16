@@ -1,6 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
 
+/* For NG-Zorro DatePicker */
+nz-date-picker[disabled] .ant-picker-input input,
+nz-date-picker[disabled] .ant-picker-input input::placeholder {
+  color: black !important;
+  opacity: 1 !important; /* Prevents blurriness */
+  pointer-events: none; /* Ensures input is not clickable */
+}
+
+/* Ensure the picker itself looks disabled but text remains clear */
+nz-date-picker[disabled] {
+  background: #fff; /* Optional: Keep background white */
+  cursor: not-allowed; /* Optional: Show disabled cursor */
+}
+
+/* If you're using other input types (e.g., regular text inputs) */
+input[disabled],
+textarea[disabled] {
+  color: black !important;
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
 .inner-content {
   padding: 24px;
   background: #fff;

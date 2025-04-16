@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import {CookieService} from "ngx-cookie-service";
+import {NzModalService} from "ng-zorro-antd/modal";
 
 export interface RequestOptions {
   data?: any;
@@ -20,6 +21,7 @@ export class BaseService {
   protected requestOptions: RequestOptions;
 
   constructor(protected readonly injector: Injector,
+              public modal: NzModalService,
               public cookieService: CookieService) {
     this.httpClient = this.injector.get(HttpClient);
   }

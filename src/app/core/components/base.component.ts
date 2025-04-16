@@ -12,6 +12,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd/modal';
 import {Mode} from "@core/shared/constants/common";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 
 @Component({
@@ -21,6 +22,7 @@ import {Mode} from "@core/shared/constants/common";
 export class BaseComponent<T>  {
   protected modal!: NzModalService;
   modalRef!: NzModalRef;
+  message: NzMessageService;
   formConfig!: { title: string; content: any, isCloseModal?: boolean, config?: any };
   addWidth = 0;
   form!: FormGroup;
@@ -33,6 +35,7 @@ export class BaseComponent<T>  {
 
   init() {
     this.modal = this.injector.get(NzModalService);
+    this.message = this.injector.get(NzMessageService);
   }
 
   search(){
@@ -61,10 +64,8 @@ export class BaseComponent<T>  {
         },
         nzFooter: mode !== Mode.VIEW ? this.footerTpl : null
       });
-      this.modalRef.afterClose.subscribe((result) => {
-          if (result?.refresh) {
+      this.modalRef.afterClose.subscribe(() => {
             this.search()
-          }
         }
       );
     } else {
