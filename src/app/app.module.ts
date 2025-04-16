@@ -11,6 +11,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppInterceptor} from "@core/services/apis/app-interceptor";
 import {CookieService} from "ngx-cookie-service";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [

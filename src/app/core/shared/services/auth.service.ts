@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from "@core/services/base/base.service";
-import {Observable} from "rxjs";
+import {firstValueFrom, Observable} from "rxjs";
 import {HTTP_STATUS_CODE, UrlConstant} from "@core/shared/constants/common";
 import {StorageService} from "@core/services/storage.service";
 import {HttpHeaders} from "@angular/common/http";
@@ -11,7 +11,6 @@ import {CookieService} from "ngx-cookie-service";
   providedIn: 'root'
 })
 export class AuthService extends BaseService {
-
 
 
   public login(data: any): Observable<any> {
@@ -29,8 +28,9 @@ export class AuthService extends BaseService {
     if (res && res.code == 'SUCCESS') {
       const userLogin: any = {};
       userLogin.role = res.role;
-      userLogin.access = res.data.access;
-      this.cookieService.set('accessToken', res.data.access);
+      userLogin.access = res.data.accessToken;
+      this.cookieService.set('accessToken', res.data.accessToken);
+      this.cookieService.set('refreshToken', res.data.refreshToken);
       StorageService.set('USER_LOGIN', userLogin);
     }
   }
@@ -44,20 +44,20 @@ export class AuthService extends BaseService {
 
   public getUserInfo(data) {
     this.resetRequest();
-    this.requestOptions.header = new HttpHeaders({ accessToken: data.access });
+    this.requestOptions.header = new HttpHeaders({accessToken: data.access});
     const url = '/auth/getUser/';
     return this.get(url, this.requestOptions);
   }
 
-  public isAuthenticated() {
-    let accessToken = null;
-    this.getUserInfo(StorageService.get('USER_LOGIN')).subscribe(res => {
-      if (res && res.code === HTTP_STATUS_CODE.SUCCESS) {
-        accessToken = res.access;
-      }
-    });
-    if (accessToken && StorageService.get('USER_LOGIN')) {
-      return accessToken;
+  async isAuthenticated(): Promise<boolean> {
+    const accessToken = this.cookieService.get('accessToken');
+    if (!accessToken) return false;
+
+    try {
+      const res = await firstValueFrom(this.getUserInfo(accessToken));
+      return res && res.code === HTTP_STATUS_CODE.SUCCESS;
+    } catch {
+      return false;
     }
   }
 }

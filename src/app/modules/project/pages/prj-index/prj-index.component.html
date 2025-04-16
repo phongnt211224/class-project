@@ -1,13 +1,28 @@
 <div>
   <nz-row [nzGutter]="16">
-    <nz-col *ngFor="let project of projects" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item" >
-      <nz-card [nzTitle]="project.title" [nzCover]="project.image" [nzExtra]="extraTemplate">
-        <p>{{ project.description }}</p>
-        <nz-tag *ngIf="project.status === 'In Progress'" nzColor="processing">In Progress</nz-tag>
-        <nz-tag *ngIf="project.status === 'Completed'" nzColor="success">Completed</nz-tag>
-        <nz-tag *ngIf="project.status === 'Pending'" nzColor="warning">Pending</nz-tag>
-        <p><strong>Start Date:</strong> {{ project.startDate }}</p>
-        <p><strong>End Date:</strong> {{ project.endDate }}</p>
+    <nz-col *ngFor="let project of projects1" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item" >
+      <ng-template #extraTemplate>
+        <div class="icon-group">
+          <a>
+            <span nz-icon nzType="eye" nzTheme="outline" (click)="doOpenFormDetail(project)"></span>
+          </a>
+          <a>
+            <span nz-icon nzType="setting" nzTheme="fill" (click)="doOpenFormEdit(project)" ></span>
+          </a>
+          <a>
+            <span nz-icon nzType="star" nzTheme="outline"></span>
+          </a>
+          <a>
+            <span nz-icon nzType="delete" nzTheme="outline" ></span>
+          </a>
+        </div>
+
+      </ng-template>
+
+      <nz-card [nzTitle]="project.name" [nzCover]="project.image" [nzExtra]="extraTemplate">
+        <p>{{ project.summary }}</p>
+        <p><strong>Start Date:</strong> {{ project.start_date }}</p>
+        <p><strong>End Date:</strong> {{ project.end_date }}</p>
       </nz-card>
     </nz-col>
   </nz-row>
@@ -16,18 +31,20 @@
 </div>
 
 
-
-<ng-template #extraTemplate>
-  <div class="icon-group">
-    <a>
-      <span nz-icon nzType="star" nzTheme="outline"></span>
-    </a>
-    <a>
-      <span nz-icon nzType="setting" nzTheme="fill" ></span>
-    </a>
-    <a>
-      <span nz-icon nzType="delete" nzTheme="outline" ></span>
-    </a>
-  </div>
-
+<ng-template #footerTmpl>
+  <button
+    nz-button
+    nzType="default"
+    (click)="modalRef.destroy()">
+    Đóng
+  </button>
+  <button
+    nz-button
+    nzType="primary"
+    (click)="modalRef.getContentComponent().save()">
+    Lưu
+  </button>
 </ng-template>
+
+
+
