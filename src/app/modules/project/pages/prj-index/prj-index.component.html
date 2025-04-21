@@ -28,9 +28,6 @@
             <span nz-icon nzType="setting" nzTheme="fill" (click)="doOpenFormEdit(project)" ></span>
           </a>
           <a>
-            <span nz-icon nzType="star" nzTheme="outline"></span>
-          </a>
-          <a>
             <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteItem(project?.id)" ></span>
           </a>
         </div>
@@ -45,7 +42,14 @@
     </nz-col>
   </nz-row>
 
-  <nz-pagination [nzPageIndex]="1" [nzTotal]="50" class="pagination"></nz-pagination>
+  <nz-pagination
+    [(nzPageIndex)]="currentPage"
+    [nzTotal]="totalItems"
+    [nzPageSize]="pageSize"
+    [nzShowSizeChanger]="true"
+    (nzPageIndexChange)="onPageChange($event)"
+    (nzPageSizeChange)="onPageSizeChange($event)"
+    class="pagination"></nz-pagination>
 </div>
 
 

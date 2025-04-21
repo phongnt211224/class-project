@@ -20,6 +20,7 @@ import {NzTypographyModule} from "ng-zorro-antd/typography";
 import {NzTimePickerModule} from "ng-zorro-antd/time-picker";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import {NzMessageModule} from "ng-zorro-antd/message";
+import {NzUploadModule} from "ng-zorro-antd/upload";
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import {NzMessageModule} from "ng-zorro-antd/message";
     NzTypographyModule,
     NzTimePickerModule,
     NzDatePickerModule,
-    NzMessageModule
+    NzMessageModule,
+    NzUploadModule
   ],
   exports: [
     NzButtonModule,
@@ -60,7 +62,8 @@ import {NzMessageModule} from "ng-zorro-antd/message";
     NzTypographyModule,
     NzTimePickerModule,
     NzDatePickerModule,
-    NzMessageModule
+    NzMessageModule,
+    NzUploadModule
   ]
 })
 export class SharedModule {

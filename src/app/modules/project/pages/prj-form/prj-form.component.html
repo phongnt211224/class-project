@@ -56,6 +56,20 @@
         </textarea>
 
       </div>
+      <div nz-col [nzLg]="24" [nzXs]="24">
+        <h5 nz-typography>Upload tài liệu</h5>
+        <nz-upload
+          [nzFileList]="fileList"
+          [nzMultiple]="true"
+          [nzBeforeUpload]="handleBeforeUpload"
+          [nzShowUploadList]="true"
+          [nzRemove]="handleRemove"
+        >
+          <button nz-button>
+            <i nz-icon nzType="upload"></i> Chọn file
+          </button>
+        </nz-upload>
+      </div>
     </div>
   </form>
 </div>

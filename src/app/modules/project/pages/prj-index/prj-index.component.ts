@@ -14,6 +14,9 @@ import {HTTP_STATUS_CODE, Mode} from "@core/shared/constants/common";
 export class PrjIndexComponent extends BaseComponent<any> implements OnInit {
 
   listProjects = [];
+  currentPage = 1;
+  pageSize = 6;
+  totalItems = 0;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -32,11 +35,23 @@ export class PrjIndexComponent extends BaseComponent<any> implements OnInit {
   }
 
   search() {
-    this.projectService.getListData().subscribe(
+    this.projectService.getListData({page:this.currentPage,pageSize:this.pageSize}).subscribe(
       res=>{
         this.listProjects = [...res.data]
+        this.totalItems = res.totalProject;
       }
     )
+  }
+
+  onPageChange(pageIndex: number): void {
+    this.currentPage = pageIndex;
+    this.search();
+  }
+
+  onPageSizeChange(newSize: number): void {
+    this.pageSize = newSize;
+    this.currentPage = 1;
+    this.search();
   }
 
   deleteItem(id) {

@@ -14,33 +14,33 @@ export class ProjectService extends BaseService{
   public getListData(params?: any): Observable<any> {
     this.resetRequest();
     this.requestOptions.params = params;
-    const url = '/project/get/';
+    const url = '/project/get';
     return this.get(url, this.requestOptions);
   }
 
   public getProject(id):Observable<any>{
     this.resetRequest();
-    const url = `/project/get/${id}/`;
+    const url = `/project/get/${id}`;
     return this.get(url, this.requestOptions);
   }
 
   public postCreateProject(data):Observable<any>{
     this.resetRequest()
-    const url = `/project/create/`;
+    const url = `/project/create`;
     this.requestOptions.data = data
     return this.post(url,this.requestOptions)
   }
 
   public putUpdateProject(data,id):Observable<any>{
     this.resetRequest()
-    const url = `/project/update/${id}/`;
+    const url = `/project/update/${id}`;
     this.requestOptions.data = data
     return this.put(url,this.requestOptions)
   }
 
   public deleteProject(id):Observable<any>{
     this.resetRequest()
-    const url = `/project/delete/${id}/`;
+    const url = `/project/delete/${id}`;
     return this.delete(url,this.requestOptions)
   }
 
