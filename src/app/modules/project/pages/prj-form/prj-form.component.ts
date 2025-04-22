@@ -6,7 +6,7 @@ import {compareDate} from "@core/shared/utils/validators.utils";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {NzModalRef} from "ng-zorro-antd/modal";
 import * as moment from "moment";
-import {NzUploadFile} from "ng-zorro-antd/upload";
+import {NzUploadFile, NzUploadXHRArgs} from "ng-zorro-antd/upload";
 
 @Component({
   selector: 'app-prj-form',
@@ -61,6 +61,7 @@ export class PrjFormComponent implements OnInit {
         let endDate = moment(res.data.end_date,'DD/MM/YYYY').toDate();
         this.form.patchValue({...res.data,start_date:startDate,end_date:endDate})
         this.patchFileList(res)
+        console.log(this.form.value)
       })
     }
   }
@@ -123,7 +124,8 @@ export class PrjFormComponent implements OnInit {
       return false;
     }
 
-    this.fileList = [...this.fileList, file];
+    file.status = 'done';
+    this.fileList = this.fileList.concat(file);
     this.form.get('file')?.setValue(this.fileList);
     return false
   };
@@ -137,6 +139,7 @@ export class PrjFormComponent implements OnInit {
     this.form.get('file')?.setValue(this.fileList);
     return true;
   };
+
 
   convertDataForm(formValue: any): any {
     const formattedValue = { ...formValue };
@@ -163,13 +166,10 @@ export class PrjFormComponent implements OnInit {
       }
     }
 
-    // Append newly added files
     files.forEach(file => {
-      if (!file.url && file.originFileObj) {
-        formData.append('files', file.originFileObj);
-      }
-    });
-
+      formData.append('file',file as unknown as File);
+    })
+    console.log(deletedFiles)
     // Append deleted file names
     deletedFiles.forEach(fileName => {
       formData.append('deletedFiles', fileName);
@@ -180,7 +180,7 @@ export class PrjFormComponent implements OnInit {
 
   patchFileList(res){
     const baseImageUrl = "http://localhost:8000/media/projects/files"
-    if(this.mode === Mode.EDIT && res.data?.file){
+    if(this.mode !== Mode.ADD && res.data?.file){
       this.fileList = res.data.file.map((name, index) => ({
         uid: `${-index - 1}`,
         name: name,
@@ -194,4 +194,5 @@ export class PrjFormComponent implements OnInit {
   }
 
 
+  protected readonly Mode = Mode;
 }

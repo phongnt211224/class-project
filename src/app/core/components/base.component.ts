@@ -50,7 +50,6 @@ export class BaseComponent<T>  {
   };
 
   doOpenForm(mode: Mode, data?: T) {
-    console.log(data)
     if (this.formConfig) {
       this.modalRef = this.modal.create({
         nzWidth: this.getNzWidth() + (this.addWidth ? this.addWidth : 0),

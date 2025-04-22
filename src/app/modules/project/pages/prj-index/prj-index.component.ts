@@ -25,7 +25,7 @@ export class PrjIndexComponent extends BaseComponent<any> implements OnInit {
   ) {
     super(injector);
     this.formConfig = {
-      title:'Testing',
+      title:'Đồ án',
       content:PrjFormComponent
     }
   }
