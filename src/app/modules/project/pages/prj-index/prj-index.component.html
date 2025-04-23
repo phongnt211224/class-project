@@ -1,52 +1,80 @@
-<div>
-  <div class="search-group">
-    <div class="search-page-left">
-      <button
-        nz-button
-        nzType="primary"
-        (click)="doOpenForm(Mode.ADD)"
-      >
-        Thêm mới
-      </button>
+<form nz-form [formGroup]="formSearch" (ngSubmit)="search()">
+  <div>
+    <div class="search-group">
+      <div class="search-page-left">
+        <button
+          nz-button
+          nzType="primary"
+          type="button"
+          (click)="doOpenForm(Mode.ADD)"
+        >
+          Thêm mới
+        </button>
+      </div>
+      <div class="search-page-right">
+        <input
+          nz-input
+          nzSize="large"
+          placeholder="Từ khóa"
+          formControlName="keySearch"
+        >
+      </div>
     </div>
-    <div class="search-page-right">
-      <input
-        nz-input
-        nzSize="large"
-        placeholder="Từ khóa"
-      >
-    </div>
+    <nz-row [nzGutter]="16">
+      <nz-col *ngFor="let project of listProjects" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item" >
+        <ng-template #extraTemplate>
+          <div class="icon-group">
+            <a>
+              <span nz-icon nzType="eye" nzTheme="outline" (click)="doOpenFormDetail(project)"></span>
+            </a>
+            <a>
+              <span nz-icon nzType="setting" nzTheme="fill" (click)="doOpenFormEdit(project)" ></span>
+            </a>
+            <a>
+              <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteItem(project?.id)" ></span>
+            </a>
+          </div>
+
+        </ng-template>
+
+        <ng-template #titleTemplate>
+          <div>
+            <p>{{project.name}}</p>
+            <nz-tag *ngFor="let field of project.researchField">
+              {{field}}
+            </nz-tag>
+          </div>
+
+        </ng-template>
+
+        <nz-card [nzTitle]="titleTemplate" [nzCover]="project.image" [nzExtra]="extraTemplate" style="min-height: 400px">
+          <p>{{ project.summary }}</p>
+          <p><strong>Start Date:</strong> {{ project.start_date }}</p>
+          <p><strong>End Date:</strong> {{ project.end_date }}</p>
+
+          <div *ngIf="project.feedBackText">
+            <strong>Nhận xét:</strong>
+            <p class="feedback-text">
+      {{ project.feedBackText.length > 100 ? (project.feedBackText | slice:0:100) + '...' : project.feedBackText }}
+            </p>
+            <strong>Bởi: {{project.feedBack_by}}</strong>
+          </div>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+
+    <nz-pagination
+      [(nzPageIndex)]="currentPage"
+      [nzTotal]="totalItems"
+      [nzPageSize]="pageSize"
+      [nzShowSizeChanger]="true"
+      (nzPageIndexChange)="onPageChange($event)"
+      (nzPageSizeChange)="onPageSizeChange($event)"
+      class="pagination"></nz-pagination>
   </div>
-  <nz-row [nzGutter]="16">
-    <nz-col *ngFor="let project of listProjects" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item" >
-      <ng-template #extraTemplate>
-        <div class="icon-group">
-          <a>
-            <span nz-icon nzType="eye" nzTheme="outline" (click)="doOpenFormDetail(project)"></span>
-          </a>
-          <a>
-            <span nz-icon nzType="setting" nzTheme="fill" (click)="doOpenFormEdit(project)" ></span>
-          </a>
-          <a>
-            <span nz-icon nzType="star" nzTheme="outline"></span>
-          </a>
-          <a>
-            <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteItem(project?.id)" ></span>
-          </a>
-        </div>
+</form>
 
-      </ng-template>
 
-      <nz-card [nzTitle]="project.name" [nzCover]="project.image" [nzExtra]="extraTemplate">
-        <p>{{ project.summary }}</p>
-        <p><strong>Start Date:</strong> {{ project.start_date }}</p>
-        <p><strong>End Date:</strong> {{ project.end_date }}</p>
-      </nz-card>
-    </nz-col>
-  </nz-row>
-
-  <nz-pagination [nzPageIndex]="1" [nzTotal]="50" class="pagination"></nz-pagination>
-</div>
 
 
 <ng-template #footerTmpl>

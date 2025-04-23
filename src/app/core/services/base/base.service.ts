@@ -29,8 +29,7 @@ export class BaseService {
   protected get(endpointUrl: string, options?: RequestOptions): Observable<any> {
     const requestOptions = this.createRequestOptions(options);
     const url = this.baseUrl + endpointUrl;
-    const urlFull = url + (requestOptions.params ? ('?' + (requestOptions.params as any).toString()) : '');
-    return this.httpClient.get(urlFull, requestOptions).pipe(
+    return this.httpClient.get(url, requestOptions).pipe(
       catchError(this.handleError)
     );
   }

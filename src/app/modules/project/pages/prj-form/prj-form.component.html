@@ -2,31 +2,42 @@
   <form nz-form [formGroup]="form" style="margin-top: 20px">
     <div nz-row [nzGutter]='[20,15]'>
       <div nz-col [nzLg]="24" [nzXs]="24">
-        <h5 nz-typography>Tên đồ án</h5>
+        <h5 nz-typography [innerHTML]="getLabelForm('Tên đồ án', true)"></h5>
         <input
           type="text"
           placeholder="Tên đồ án"
           nz-input
           formControlName="name"
+          [ngClass]="{'error': isSubmitted && f['name'].errors}"
         />
-
+        <div *ngIf="isSubmitted && f['name'].errors">
+          <div *ngIf="f['name'].errors?.required" style="color: red; margin-top: 5px">
+            *Tên đồ án bắt buộc nhập
+          </div>
+        </div>
       </div>
       <div nz-col [nzLg]="12" [nzXs]="24">
-        <h5 nz-typography>Ngày bắt đầu</h5>
+        <h5 nz-typography [innerHTML]="getLabelForm('Ngày bắt đầu', true)"></h5>
         <nz-date-picker
           formControlName="start_date"
           nzFormat="dd/MM/yyyy"
           [nzStatus]="form.errors?.rangeDateError ? 'error' : null"
+          [ngClass]="{'error': isSubmitted && f['start_date'].errors}"
         >
 
         </nz-date-picker>
+        <div *ngIf="isSubmitted && f['start_date'].errors">
+          <div *ngIf="f['start_date'].errors?.required" style="color: red; margin-top: 5px">
+            *Ngày bắt đầu bắt buộc nhập
+          </div>
+        </div>
         <div *ngIf="form.errors?.rangeDateError" class="error-label">
           Ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc.
         </div>
 
       </div>
       <div nz-col [nzLg]="12" [nzXs]="24">
-        <h5 nz-typography>Ngày kết thúc</h5>
+        <h5 nz-typography >Ngày kết thúc</h5>
         <nz-date-picker
           formControlName="end_date"
           nzFormat="dd/MM/yyyy"
@@ -36,14 +47,20 @@
 
       </div>
       <div nz-col [nzLg]="24" [nzXs]="24">
-        <h5 nz-typography>Tóm tắt đồ án</h5>
+        <h5 nz-typography [innerHTML]="getLabelForm('Tóm tắt đồ án', true)"></h5>
         <textarea
           [rows]="2"
           nz-input
           formControlName="summary"
+          [ngClass]="{'error': isSubmitted && f['summary'].errors}"
         >
 
         </textarea>
+        <div *ngIf="isSubmitted && f['summary'].errors">
+          <div *ngIf="f['summary'].errors?.required" style="color: red; margin-top: 5px">
+            *Tóm tắt đồ án bắt buộc nhập
+          </div>
+        </div>
       </div>
       <div nz-col [nzLg]="24" [nzXs]="24">
         <h5 nz-typography>Mô tả đồ án</h5>
@@ -55,6 +72,33 @@
 
         </textarea>
 
+      </div>
+      <div nz-col [nzLg]="24" [nzXs]="24">
+        <h5 nz-typography>Nhận xét của giảng viên</h5>
+        <textarea
+          [rows]="5"
+          nz-input
+          formControlName="feedBackText"
+        >
+
+        </textarea>
+
+      </div>
+      <div nz-col [nzLg]="24" [nzXs]="24">
+        <h5 nz-typography>Upload tài liệu</h5>
+        <nz-upload
+          [(nzFileList)]="fileList"
+          [nzMultiple]="true"
+          [nzBeforeUpload]="handleBeforeUpload"
+          [nzShowUploadList]="true"
+          [nzRemove]="handleRemove"
+          [nzDisabled]="mode === Mode.VIEW"
+
+        >
+          <button nz-button [disabled]="mode === Mode.VIEW">
+            <i nz-icon nzType="upload"></i> Chọn file
+          </button>
+        </nz-upload>
       </div>
     </div>
   </form>

@@ -16,7 +16,7 @@ export class AuthService extends BaseService {
   public login(data: any): Observable<any> {
     this.resetRequest();
     this.requestOptions.data = data;
-    const url = '/auth/login/';
+    const url = '/auth/login';
     return this.post(url, this.requestOptions);
   }
 
@@ -38,14 +38,14 @@ export class AuthService extends BaseService {
   public getAccessToken(data) {
     this.resetRequest();
     this.requestOptions.params = data;
-    const url = '/auth/getAccesstoken/';
+    const url = '/auth/getAccesstoken';
     return this.get(url, this.requestOptions);
   }
 
   public getUserInfo(data) {
     this.resetRequest();
     this.requestOptions.header = new HttpHeaders({accessToken: data.access});
-    const url = '/auth/getUser/';
+    const url = '/auth/getUser';
     return this.get(url, this.requestOptions);
   }
 
