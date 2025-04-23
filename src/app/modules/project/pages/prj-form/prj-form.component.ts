@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ProjectService} from "@core/services/project/project.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HTTP_STATUS_CODE, Mode} from "@core/shared/constants/common";
 import {compareDate} from "@core/shared/utils/validators.utils";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {NzModalRef} from "ng-zorro-antd/modal";
 import * as moment from "moment";
 import {NzUploadFile, NzUploadXHRArgs} from "ng-zorro-antd/upload";
+import {ResearchFieldService} from "@core/services/project/researchField.service";
 
 @Component({
   selector: 'app-prj-form',
@@ -19,9 +20,11 @@ export class PrjFormComponent implements OnInit {
   form!: FormGroup;
   fileList: NzUploadFile[] = [];
   deletedFiles: string[] = [];
+  isSubmitted = false;
 
   constructor(
     private projectService:ProjectService,
+    private researchFieldService:ResearchFieldService,
     private fb: FormBuilder,
     private message: NzMessageService,
     private modal: NzModalRef
@@ -37,21 +40,28 @@ export class PrjFormComponent implements OnInit {
     if(this.mode === Mode.VIEW){
       this.form.disable();
     }
-
+    this.researchFieldService.getListData().subscribe(res=>{
+      console.log(res);
+    })
   }
 
   initForm(){
     this.form = this.fb.group({
       projectId:[null],
-      name:[null],
+      name:[null,Validators.required],
       description:[null],
-      summary:[null],
-      start_date:[null],
+      summary:[null,Validators.required],
+      start_date:[null,Validators.required],
       end_date:[null],
-      file:[[]]
+      file:[[]],
+      feedBackText:[null],
     },{
       validators:compareDate('start_date','end_date','rangeDateError')
     })
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   initData(){
@@ -67,6 +77,7 @@ export class PrjFormComponent implements OnInit {
   }
 
   save(): void {
+    this.isSubmitted = true;
     if (this.mode === Mode.ADD) {
       if (this.form.valid) {
         const formValue = this.convertDataToFormData(this.form.value,this.fileList,this.deletedFiles);
@@ -140,6 +151,13 @@ export class PrjFormComponent implements OnInit {
     return true;
   };
 
+  getLabelForm(label:string,isRequired:boolean){
+    if(isRequired){
+      label += ' <span class=\'label__required\'>*</span>';
+    }
+    return label
+  }
+
 
   convertDataForm(formValue: any): any {
     const formattedValue = { ...formValue };
@@ -165,9 +183,12 @@ export class PrjFormComponent implements OnInit {
         formData.append(key, formValue[key]);
       }
     }
-
+    console.log(files)
     files.forEach(file => {
-      formData.append('file',file as unknown as File);
+      if(!file?.url){
+        formData.append('file',file as unknown as File);
+      }
+
     })
     console.log(deletedFiles)
     // Append deleted file names
@@ -189,7 +210,6 @@ export class PrjFormComponent implements OnInit {
         thumbUrl: `${baseImageUrl}/${name}`,
       }));
 
-      this.form.get('file')?.setValue(this.fileList);
     }
   }
 
