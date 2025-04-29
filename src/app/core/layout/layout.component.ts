@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -22,12 +22,21 @@ export class LayoutComponent implements OnInit {
         }));
     });
   }
+
   ngOnInit(): void {
 
   }
 
-  triggerCollapse(){
+  triggerCollapse() {
     this.isCollapsed = !this.isCollapsed
   }
 
+
+  navigateHome() {
+    this.router.navigate(['/home/project']);
+  }
+
+  navigateAdmin() {
+    this.router.navigate(['/home/admin']);
+  }
 }

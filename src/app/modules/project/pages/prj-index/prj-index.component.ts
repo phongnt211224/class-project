@@ -33,10 +33,6 @@ export class PrjIndexComponent extends BaseComponent<any> implements OnInit {
     }
   }
 
-  @HostListener('window:keydown.enter', ['$event'])
-  handleKeyDown(event: KeyboardEvent) {
-    this.search();
-  }
 
   ngOnInit(): void {
     this.search()

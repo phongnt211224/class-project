@@ -38,6 +38,11 @@ export class BaseComponent<T>  {
     this.message = this.injector.get(NzMessageService);
   }
 
+  @HostListener('window:keydown.enter', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    this.search();
+  }
+
   search(){
 
   }
