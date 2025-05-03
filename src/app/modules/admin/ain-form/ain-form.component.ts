@@ -18,9 +18,9 @@ export class AinFormComponent implements OnInit {
   isSubmitted = false;
 
   roles = [
-    {value: 'Admin', label: 'Admin'},
-    {value: 'Lecturer', label: 'Lecturer'},
-    {value: 'Student', label: 'Student'}
+    {value: 'admin', label: 'Admin'},
+    {value: 'lecturer', label: 'Lecturer'},
+    {value: 'student', label: 'Student'}
   ];
 
   @Input() data: any
@@ -53,7 +53,7 @@ export class AinFormComponent implements OnInit {
       phone_number: [null, [Validators.required, Validators.pattern(/^0\d{9}$/)]],
       birth: [null, Validators.required],
       mssv: [null, Validators.required],
-      role: ['Student', Validators.required],
+      role: ['student', Validators.required],
     }, {
       validators: compareWithToday('birth', 'rangeDateError')
     })
