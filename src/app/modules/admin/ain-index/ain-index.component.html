@@ -30,6 +30,7 @@
           <th>Số điện thoại</th>
           <th>Vai trò</th>
           <th>Ngày sinh</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -40,9 +41,38 @@
           <td>{{ data.phone_number }}</td>
           <td>{{ data.role }}</td>
           <td>{{ data.birth }}</td>
+          <td>
+            <div class="icon-group">
+              <a>
+                <span nz-icon nzType="eye" nzTheme="outline" (click)="doOpenFormDetail(data)"></span>
+              </a>
+              <a>
+                <span nz-icon nzType="setting" nzTheme="fill" (click)="doOpenFormEdit(data)"></span>
+              </a>
+              <a>
+                <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteItem(data?.id)"></span>
+              </a>
+            </div>
+          </td>
         </tr>
         </tbody>
       </nz-table>
     </div>
   </div>
 </form>
+
+<ng-template #footerTmpl>
+  <button
+    nz-button
+    nzType="default"
+    (click)="modalRef.destroy()">
+    Đóng
+  </button>
+  <button
+    nz-button
+    nzType="primary"
+    (click)="modalRef.getContentComponent().save()">
+    Lưu
+  </button>
+</ng-template>
+

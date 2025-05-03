@@ -25,7 +25,7 @@ export class AinIndexComponent extends BaseComponent<any> implements OnInit {
   ) {
     super(injector);
     this.formConfig = {
-      title: 'Đồ án',
+      title: 'Người dùng',
       content: AinFormComponent
     }
   }
@@ -53,6 +53,16 @@ export class AinIndexComponent extends BaseComponent<any> implements OnInit {
         this.totalItems = res.totalProject;
       }
     )
+  }
+
+
+  deleteItem(id) {
+    this.adminService.confirmDelete(() => {
+      this.adminService.deleteById(id).subscribe(res => {
+        this.message.success('Delete success')
+        this.search()
+      });
+    });
   }
 
   protected readonly Mode = Mode;

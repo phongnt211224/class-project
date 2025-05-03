@@ -44,17 +44,4 @@ export class ProjectService extends BaseService{
     return this.delete(url,this.requestOptions)
   }
 
-  confirmDelete(callback: () => void): void {
-    this.modal.confirm({
-      nzTitle: 'Xác nhận xoá',
-      nzContent: 'Bạn có chắc chắn muốn xoá mục này?',
-      nzOkText: 'Xoá',
-      nzOkDanger: true,
-      nzCancelText: 'Huỷ',
-      nzOnOk: () => {
-        callback();
-      }
-    });
-  }
-
 }

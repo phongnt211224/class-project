@@ -1,1 +1,135 @@
-<p>ain-form works!</p>
+<div class='form'>
+  <form nz-form [formGroup]="form" style="margin-top: 20px">
+    <div nz-row [nzGutter]='[20,15]'>
+      <div nz-col [nzLg]="12" [nzXs]="12">
+        <h5 nz-typography [innerHTML]="getLabelForm('Email', true)"></h5>
+        <input
+          type="text"
+          placeholder="Email"
+          nz-input
+          formControlName="email"
+          [ngClass]="{'error': isSubmitted && f['email'].errors}"
+        />
+        <div *ngIf="isSubmitted && f['email'].errors">
+          <div *ngIf="f['email'].errors?.required" style="color: red; margin-top: 5px">
+            *Email bắt buộc nhập
+          </div>
+          <div *ngIf="f['email'].errors?.email" style="color: red; margin-top: 5px">Email sai định dạng!</div>
+        </div>
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="12">
+        <h5 nz-typography [innerHTML]="getLabelForm('Tên người dùng', true)"></h5>
+        <input
+          type="text"
+          [maxlength]="50"
+          placeholder="Tên người dùng"
+          nz-input
+          formControlName="username"
+          [ngClass]="{'error': isSubmitted && f['username'].errors}"
+        />
+        <div *ngIf="isSubmitted && f['username'].errors">
+          <div *ngIf="f['username'].errors?.required" style="color: red; margin-top: 5px">
+            *Tên người dùng bắt buộc nhập
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="12">
+        <h5 nz-typography [innerHTML]="getLabelForm('Tên', true)"></h5>
+        <input
+          type="text"
+          placeholder="Tên"
+          [maxlength]="50"
+          nz-input
+          formControlName="first_name"
+          [ngClass]="{'error': isSubmitted && f['first_name'].errors}"
+        />
+        <div *ngIf="isSubmitted && f['first_name'].errors">
+          <div *ngIf="f['first_name'].errors?.required" style="color: red; margin-top: 5px">
+            *Tên bắt buộc nhập
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="12">
+        <h5 nz-typography [innerHTML]="getLabelForm('Họ', true)"></h5>
+        <input
+          type="text"
+          placeholder="Họ"
+          [maxlength]="50"
+          nz-input
+          formControlName="last_name"
+          [ngClass]="{'error': isSubmitted && f['last_name'].errors}"
+        />
+        <div *ngIf="isSubmitted && f['last_name'].errors">
+          <div *ngIf="f['last_name'].errors?.required" style="color: red; margin-top: 5px">
+            *Họ bắt buộc nhập
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="12">
+        <h5 nz-typography [innerHTML]="getLabelForm('Số điện thoại', true)"></h5>
+        <input
+          type="text"
+          placeholder="Số điện thoại"
+          nz-input
+          formControlName="phone_number"
+          [ngClass]="{'error': isSubmitted && f['phone_number'].errors}"
+        />
+        <div *ngIf="isSubmitted && f['phone_number'].errors">
+          <div *ngIf="f['phone_number'].errors?.required" style="color: red; margin-top: 5px">
+            *Số điện thoại bắt buộc nhập
+          </div>
+          <div *ngIf="f['phone_number'].errors?.pattern" style="color: red; margin-top: 5px">
+            *Số điện thoại không đúng định dạng
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="12">
+        <h5 nz-typography [innerHTML]="getLabelForm('Ngày sinh', true)"></h5>
+        <nz-date-picker
+          formControlName="birth"
+          nzFormat="dd/MM/yyyy"
+          style="width: 100%"
+        >
+        </nz-date-picker>
+        <div *ngIf="isSubmitted">
+          <div *ngIf="f['birth'].errors?.required" style="color: red; margin-top: 5px">
+            *Ngày sinh bắt buộc nhập
+          </div>
+          <div *ngIf="form.errors?.rangeDateError" class="error-label">
+            Ngày sinh không được lớn hơn hoặc bằng ngày hiện tại.
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="12">
+        <h5 nz-typography [innerHTML]="getLabelForm('MSSV', true)"></h5>
+        <input
+          type="text"
+          placeholder="MSSV"
+          [maxlength]="10"
+          nz-input
+          formControlName="mssv"
+        />
+        <div *ngIf="isSubmitted && f['mssv'].errors">
+          <div *ngIf="f['mssv'].errors?.required" style="color: red; margin-top: 5px">
+            *MSSV bắt buộc nhập
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzLg]="12" [nzXs]="12">
+        <h5 nz-typography [innerHTML]="getLabelForm('Vai trò', true)"></h5>
+        <nz-select
+          formControlName="role"
+          style="width: 100%"
+          nzPlaceHolder="Chọn vai trò"
+          [ngClass]="{ 'error': isSubmitted && f['role'].errors }"
+        >
+          <nz-option *ngFor="let role of roles" [nzValue]="role.value" [nzLabel]="role.label"></nz-option>
+        </nz-select>
+
+        <div *ngIf="isSubmitted && f['role'].errors?.required" style="color: red; margin-top: 5px">
+          *Vai trò là bắt buộc
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
