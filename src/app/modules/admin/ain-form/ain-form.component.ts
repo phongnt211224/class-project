@@ -120,7 +120,7 @@ export class AinFormComponent implements OnInit {
     for (const key in formValue) {
       if (formValue[key] instanceof Date || (formValue[key]?.toDate && typeof formValue[key].toDate === 'function')) {
         const date = formValue[key].toDate ? formValue[key].toDate() : formValue[key];
-        formData.append(key, new Date(date).toISOString().split('T')[0]);
+        formData.append(key, date.toLocaleDateString('en-CA'));
       } else if (key !== 'file') {
         formData.append(key, formValue[key]);
       }
