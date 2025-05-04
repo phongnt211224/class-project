@@ -21,6 +21,7 @@ export class PrjFormComponent implements OnInit {
   fileList: NzUploadFile[] = [];
   deletedFiles: string[] = [];
   isSubmitted = false;
+  researchFieldList: any[];
 
   constructor(
     private projectService: ProjectService,
@@ -41,7 +42,12 @@ export class PrjFormComponent implements OnInit {
       this.form.disable();
     }
     this.researchFieldService.getListData().subscribe(res => {
-      console.log(res);
+      this.researchFieldList = res.data.map((item) =>{
+        return {
+          id:item.id,
+          name:item.name
+        }
+      })
     })
   }
 
@@ -53,6 +59,7 @@ export class PrjFormComponent implements OnInit {
       summary: [null, Validators.required],
       start_date: [null, Validators.required],
       end_date: [null],
+      researchField:[null,Validators.required],
       file: [[]],
       feedBackText: [null],
     }, {
@@ -179,10 +186,13 @@ export class PrjFormComponent implements OnInit {
       if (formValue[key] instanceof Date || (formValue[key]?.toDate && typeof formValue[key].toDate === 'function')) {
         const date = formValue[key].toDate ? formValue[key].toDate() : formValue[key];
         formData.append(key, new Date(date).toISOString().split('T')[0]);
+      } else if(Array.isArray(formValue[key])){
+        formValue[key].forEach((item)=> formData.append(key,item))
       } else if (key !== 'file') {
         formData.append(key, formValue[key]);
       }
     }
+    formData.delete('file')
     files.forEach(file => {
       if (!file?.url) {
         formData.append('file', file as unknown as File);
