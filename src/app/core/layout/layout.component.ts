@@ -37,6 +37,10 @@ export class LayoutComponent implements OnInit {
   }
 
   navigateAdmin() {
-    this.router.navigate(['/home/admin']);
+    this.router.navigate(['/home/admin/user']);
+  }
+
+  navigateResearchField(){
+    this.router.navigate(['/home/admin/researchField']);
   }
 }

@@ -7,12 +7,16 @@ import {AinFormComponent} from './ain-form/ain-form.component';
 import {SharedModule} from "@core/shared/shared.module";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzSelectModule} from "ng-zorro-antd/select";
+import { RldIndexComponent } from './rld-index/rld-index.component';
+import { RldFormComponent } from './rld-form/rld-form.component';
 
 
 @NgModule({
   declarations: [
     AinIndexComponent,
-    AinFormComponent
+    AinFormComponent,
+    RldIndexComponent,
+    RldFormComponent
   ],
     imports: [
         CommonModule,

@@ -47,6 +47,25 @@
 
       </div>
       <div nz-col [nzLg]="24" [nzXs]="24">
+        <h5 nz-typography [innerHTML]="getLabelForm('Lĩnh vực', true)"></h5>
+        <nz-select
+          formControlName="researchField"
+          nzMode="multiple"
+          [ngClass]="{'error': isSubmitted && f['researchField'].errors}"
+          style="width: 100%"
+        >
+          <ng-container *ngFor="let researchField of researchFieldList ">
+            <nz-option [nzLabel]="researchField.name" [nzValue]="researchField.id"></nz-option>
+          </ng-container>
+        </nz-select>
+
+        <div *ngIf="isSubmitted && f['researchField'].errors">
+          <div *ngIf="f['researchField'].errors?.required" style="color: red; margin-top: 5px">
+            *Lĩnh vực bắt buộc nhập
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzLg]="24" [nzXs]="24">
         <h5 nz-typography [innerHTML]="getLabelForm('Tóm tắt đồ án', true)"></h5>
         <textarea
           [rows]="2"

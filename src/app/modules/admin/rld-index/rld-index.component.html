@@ -1,4 +1,4 @@
-  <form nz-form [formGroup]="formSearch" (ngSubmit)="search()">
+<form nz-form [formGroup]="formSearch" (ngSubmit)="search()">
   <div>
     <div class="search-group">
       <div class="search-page-left">
@@ -24,24 +24,16 @@
       <nz-table #basicTable [nzData]="listData">
         <thead>
         <tr style="text-align: center">
-          <th>Tên người dùng</th>
-          <th>Email</th>
-          <th>MSSV</th>
-          <th>Số điện thoại</th>
-          <th>Vai trò</th>
-          <th>Ngày sinh</th>
+          <th>Tên Lĩnh vực</th>
+          <th>Ghi chú</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let data of basicTable.data">
-          <td>{{ data.username }}</td>
-          <td>{{ data.email }}</td>
-          <td>{{ data.mssv }}</td>
-          <td>{{ data.phone_number }}</td>
-          <td>{{ data.role }}</td>
-          <td>{{ data.birth }}</td>
-          <td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.description }}</td>
+          <td >
             <div class="icon-group">
               <a>
                 <span nz-icon nzType="eye" nzTheme="outline" (click)="doOpenFormDetail(data)"></span>
