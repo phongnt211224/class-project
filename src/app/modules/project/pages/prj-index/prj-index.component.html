@@ -17,7 +17,7 @@
           formControlName="researchField"
           nzSize="large"
           nzPlaceHolder="Chọn lĩnh vực">
-          <nz-option *ngFor="let researchField of researchFieldList" [nzValue]="researchField.id"
+          <nz-option *ngFor="let researchField of researchFieldList" [nzValue]="researchField.name"
                      [nzLabel]="researchField.name"></nz-option>
         </nz-select>
         <input
