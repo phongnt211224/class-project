@@ -11,8 +11,17 @@
           Thêm mới
         </button>
       </div>
-      <div class="search-page-right">
+      <div class="search-page-right" style="display: flex">
+        <nz-select
+          style="flex: 1; margin-left: 10px; width: 100%"
+          formControlName="researchField"
+          nzSize="large"
+          nzPlaceHolder="Chọn lĩnh vực">
+          <nz-option *ngFor="let researchField of researchFieldList" [nzValue]="researchField.id"
+                     [nzLabel]="researchField.name"></nz-option>
+        </nz-select>
         <input
+          style="width: 50%"
           nz-input
           nzSize="large"
           placeholder="Từ khóa"
@@ -21,17 +30,17 @@
       </div>
     </div>
     <nz-row [nzGutter]="16">
-      <nz-col *ngFor="let project of listProjects" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item" >
+      <nz-col *ngFor="let project of listProjects" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item">
         <ng-template #extraTemplate>
           <div class="icon-group">
-            <a>
+            <a *ngIf="(dataUser.role.toLowerCase() == 'admin' || dataUser.role.toLowerCase() == 'lecturer')">
               <span nz-icon nzType="eye" nzTheme="outline" (click)="doOpenFormDetail(project)"></span>
             </a>
-            <a>
-              <span nz-icon nzType="setting" nzTheme="fill" (click)="doOpenFormEdit(project)" ></span>
+            <a *ngIf="(dataUser.role.toLowerCase() == 'admin' || dataUser.role.toLowerCase() == 'lecturer')">
+              <span nz-icon nzType="setting" nzTheme="fill" (click)="doOpenFormEdit(project)"></span>
             </a>
-            <a>
-              <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteItem(project?.id)" ></span>
+            <a *ngIf="(dataUser.role.toLowerCase() == 'admin')">
+              <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteItem(project?.id)"></span>
             </a>
           </div>
 
@@ -39,15 +48,16 @@
 
         <ng-template #titleTemplate>
           <div>
-            <p>{{project.name}}</p>
+            <p>{{ project.name }}</p>
             <nz-tag *ngFor="let field of project.researchFieldName">
-              {{field}}
+              {{ field }}
             </nz-tag>
           </div>
 
         </ng-template>
 
-        <nz-card [nzTitle]="titleTemplate" [nzCover]="project.image" [nzExtra]="extraTemplate" style="min-height: 400px">
+        <nz-card [nzTitle]="titleTemplate" [nzCover]="project.image" [nzExtra]="extraTemplate"
+                 style="min-height: 400px">
           <p>{{ project.summary }}</p>
           <p><strong>Start Date:</strong> {{ project.start_date }}</p>
           <p><strong>End Date:</strong> {{ project.end_date }}</p>
@@ -55,9 +65,9 @@
           <div *ngIf="project.feedBackText">
             <strong>Nhận xét:</strong>
             <p class="feedback-text">
-      {{ project.feedBackText.length > 100 ? (project.feedBackText | slice:0:100) + '...' : project.feedBackText }}
+              {{ project.feedBackText.length > 100 ? (project.feedBackText | slice:0:100) + '...' : project.feedBackText }}
             </p>
-            <strong>Bởi: {{project.feedBack_by}}</strong>
+            <strong>Bởi: {{ project.feedBack_by }}</strong>
           </div>
         </nz-card>
       </nz-col>
@@ -73,8 +83,6 @@
       class="pagination"></nz-pagination>
   </div>
 </form>
-
-
 
 
 <ng-template #footerTmpl>

@@ -19,7 +19,7 @@
             [style]="isCollapsed ? 'font-size:20px' : 'font-size:40px'"></span>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-submenu nzTitle="Quản trị" nzIcon="project">
+      <li nz-submenu nzTitle="Quản trị" nzIcon="project" *ngIf="dataUser.role.toLowerCase() == 'admin'">
         <ul>
           <li (click)="navigateAdmin()" nz-menu-item>Danh sách người dùng</li>
         </ul>
@@ -35,7 +35,11 @@
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-header></nz-header>
+    <nz-header>
+      <div style="display: flex; justify-content: end; margin: 20px 20px 0 0">
+        <button nz-button nzType="default" (click)="logout()">Logout</button>
+      </div>
+    </nz-header>
     <nz-content>
       <nz-breadcrumb>
         <nz-breadcrumb-item *ngFor="let crumb of breadcrumbs">

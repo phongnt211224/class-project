@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {CookieService} from "ngx-cookie-service";
+import {StorageService} from "@core/services/storage.service";
 
 @Component({
   selector: 'app-layout',
@@ -8,10 +10,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class LayoutComponent implements OnInit {
   breadcrumbs: { label: string, path: string }[] = [];
-
+  dataUser = null;
   isCollapsed = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, public cookieService: CookieService) {
     this.router.events.subscribe(() => {
       this.breadcrumbs = this.router.url
         .split('/')
@@ -24,7 +26,7 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.dataUser = StorageService.get('USER_LOGIN');
   }
 
   triggerCollapse() {
@@ -40,7 +42,15 @@ export class LayoutComponent implements OnInit {
     this.router.navigate(['/home/admin/user']);
   }
 
-  navigateResearchField(){
+  logout() {
+    StorageService.clear();
+    localStorage.clear();
+    this.cookieService.delete('accessToken');
+    this.cookieService.delete('refreshToken')
+    this.router.navigate(['/auth/login']);
+  }
+
+  navigateResearchField() {
     this.router.navigate(['/home/admin/researchField']);
   }
 }
