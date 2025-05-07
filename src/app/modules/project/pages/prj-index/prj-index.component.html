@@ -3,6 +3,7 @@
     <div class="search-group">
       <div class="search-page-left">
         <button
+          *ngIf="(dataUser.role.toLowerCase() == 'admin' || dataUser.role.toLowerCase() == 'lecturer')"
           nz-button
           nzType="primary"
           type="button"
@@ -11,29 +12,53 @@
           Thêm mới
         </button>
       </div>
-      <div class="search-page-right" style="display: flex">
-        <nz-select
-          style="flex: 1; margin-left: 10px; width: 100%"
-          formControlName="researchField"
-          nzSize="large"
-          nzPlaceHolder="Chọn lĩnh vực">
-          <nz-option *ngFor="let researchField of researchFieldList" [nzValue]="researchField.name"
-                     [nzLabel]="researchField.name"></nz-option>
-        </nz-select>
-        <input
-          style="width: 50%"
-          nz-input
-          nzSize="large"
-          placeholder="Từ khóa"
-          formControlName="keySearch"
-        >
+      <div class="search-page-right" style="flex-direction: column">
+        <!-- Row 1 -->
+        <div class="row">
+          <nz-date-picker
+            formControlName="start_date"
+            nzFormat="dd/MM/yyyy"
+            [nzStatus]="formSearch.errors?.rangeDateError ? 'error' : null"
+            [ngClass]="{'error': isSubmitted && f['start_date'].errors}">
+          </nz-date-picker>
+
+          <nz-date-picker
+            formControlName="end_date"
+            nzFormat="dd/MM/yyyy"
+            [nzStatus]="formSearch.errors?.rangeDateError ? 'error' : null"
+            [ngClass]="{'error': isSubmitted && f['end_date'].errors}">
+          </nz-date-picker>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="row">
+          <nz-select
+            formControlName="researchField"
+            nzSize="large"
+            nzPlaceHolder="Chọn lĩnh vực">
+            <nz-option *ngFor="let researchField of researchFieldList"
+                       [nzValue]="researchField.name"
+                       [nzLabel]="researchField.name">
+            </nz-option>
+          </nz-select>
+
+          <input
+            nz-input
+            nzSize="large"
+            placeholder="Từ khóa"
+            formControlName="keySearch" />
+        </div>
+        <div *ngIf="formSearch.errors?.rangeDateError" class="error-label row">
+          Ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc.
+        </div>
       </div>
+
     </div>
     <nz-row [nzGutter]="16">
       <nz-col *ngFor="let project of listProjects" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="card-item">
         <ng-template #extraTemplate>
           <div class="icon-group">
-            <a *ngIf="(dataUser.role.toLowerCase() == 'admin' || dataUser.role.toLowerCase() == 'lecturer')">
+            <a>
               <span nz-icon nzType="eye" nzTheme="outline" (click)="doOpenFormDetail(project)"></span>
             </a>
             <a *ngIf="(dataUser.role.toLowerCase() == 'admin' || dataUser.role.toLowerCase() == 'lecturer')">
@@ -48,7 +73,7 @@
 
         <ng-template #titleTemplate>
           <div>
-            <p>{{ project.name }}</p>
+            <p style="text-wrap: wrap">{{ project.name }}</p>
             <nz-tag *ngFor="let field of project.researchFieldName">
               {{ field }}
             </nz-tag>

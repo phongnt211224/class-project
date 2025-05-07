@@ -1,3 +1,7 @@
 ::ng-deep .label__required {
   color: red;
 }
+.readonly-like-disabled {
+  background-color: #f5f5f5; /* same as disabled */
+  cursor: not-allowed;
+}
