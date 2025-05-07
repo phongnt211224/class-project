@@ -35,11 +35,13 @@ export class PrjFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.mode !== Mode.ADD) {
-      console.log('run into')
       this.initData()
     }
     if (this.mode === Mode.VIEW) {
       this.form.disable();
+      this.form.get('description').enable();
+      this.form.get('summary').enable();
+      this.form.get('feedBackText').enable();
     }
     this.researchFieldService.getListData().subscribe(res => {
       this.researchFieldList = res.data.map((item) =>{
@@ -181,11 +183,13 @@ export class PrjFormComponent implements OnInit {
 
   convertDataToFormData(formValue: any, files: NzUploadFile[], deletedFiles: string[]): FormData {
     const formData = new FormData();
-
+    console.log(formValue)
     for (const key in formValue) {
       if (formValue[key] instanceof Date || (formValue[key]?.toDate && typeof formValue[key].toDate === 'function')) {
         const date = formValue[key].toDate ? formValue[key].toDate() : formValue[key];
-        formData.append(key, new Date(date).toISOString().split('T')[0]);
+        const localDate = new Date(date);
+        const formattedDate = `${localDate.getFullYear()}-${String(localDate.getMonth() + 1).padStart(2, '0')}-${String(localDate.getDate()).padStart(2, '0')}`;
+        formData.append(key, formattedDate);
       } else if(Array.isArray(formValue[key])){
         formValue[key].forEach((item)=> formData.append(key,item))
       } else if (key !== 'file') {

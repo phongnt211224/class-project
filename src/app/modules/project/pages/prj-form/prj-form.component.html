@@ -26,7 +26,7 @@
         >
 
         </nz-date-picker>
-        <div *ngIf="isSubmitted && f['start_date'].errors">
+        <div *ngIf="isSubmitted && f['start_date']?.errors">
           <div *ngIf="f['start_date'].errors?.required" style="color: red; margin-top: 5px">
             *Ngày bắt đầu bắt buộc nhập
           </div>
@@ -71,7 +71,12 @@
           [rows]="2"
           nz-input
           formControlName="summary"
-          [ngClass]="{'error': isSubmitted && f['summary'].errors}"
+          [readonly]="mode === Mode.VIEW"
+          [ngClass]="{
+  'readonly-like-disabled': mode === Mode.VIEW,
+  'error': isSubmitted && f['summary'].errors
+}"
+
         >
 
         </textarea>
@@ -87,6 +92,8 @@
           [rows]="5"
           nz-input
           formControlName="description"
+          [readonly]="mode === Mode.VIEW"
+          [ngClass]="mode === Mode.VIEW ? 'readonly-like-disabled' : ''"
         >
 
         </textarea>
@@ -98,6 +105,8 @@
           [rows]="5"
           nz-input
           formControlName="feedBackText"
+          [readonly]="mode === Mode.VIEW"
+          [ngClass]="mode === Mode.VIEW ? 'readonly-like-disabled' : ''"
         >
 
         </textarea>

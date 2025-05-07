@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {StorageService} from "@core/services/storage.service";
 import {ResearchFieldService} from "@core/services/project/researchField.service";
 import * as moment from "moment";
+import {compareDate} from "@core/shared/utils/validators.utils";
 
 @Component({
   selector: 'app-prj-index',
@@ -43,6 +44,7 @@ export class PrjIndexComponent extends BaseComponent<any> implements OnInit {
 
   ngOnInit(): void {
     this.initFormSearch();
+    this.formSearch.reset();
     this.search();
     this.dataUser = StorageService.get('USER_LOGIN');
   }
@@ -58,8 +60,17 @@ export class PrjIndexComponent extends BaseComponent<any> implements OnInit {
   initFormSearch() {
     this.formSearch = this.fb.group({
       keySearch: [null],
-      researchField: [null]
-    })
+      researchField: [null],
+      start_date:[null],
+      end_date:[null]
+    },
+      {
+        validators: compareDate('start_date', 'end_date', 'rangeDateError')
+      })
+  }
+
+  get f() {
+    return this.formSearch.controls;
   }
 
   search() {
@@ -68,6 +79,8 @@ export class PrjIndexComponent extends BaseComponent<any> implements OnInit {
       pageSize: this.pageSize,
       keySearch: this.formSearch?.controls['keySearch']?.value,
       researchField: this.formSearch?.controls['researchField']?.value,
+      start_date: this.formSearch?.controls['start_date']?.value ? moment(this.formSearch?.controls['start_date']?.value).format("DD/MM/yyyy") : null,
+      end_date: this.formSearch?.controls['end_date']?.value ? moment(this.formSearch?.controls['end_date']?.value).format("DD/MM/yyyy") : null,
     }).subscribe(
       res => {
         this.listProjects = [...res.data]
